@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spin the Bottle · Indecisiveness Solver</title>
+<meta name="description" content="Type your options, spread them around the circle, and let the bottle decide." />
+<meta name="theme-color" content="#ffd9e8" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍾</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="blobs" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+
+  <header class="site-header">
+    <h1><span class="wobble">🍾</span> Spin the Bottle</h1>
+    <p class="tagline">Can't decide? Let physics (and a little randomness) do it for you.</p>
+  </header>
+
+  <main class="layout">
+    <section class="card panel" aria-labelledby="options-heading">
+      <h2 id="options-heading">Your options</h2>
+
+      <form id="add-form" class="add-row" autocomplete="off">
+        <input id="option-input" type="text" placeholder="Pizza, Sushi, Tacos…" maxlength="400"
+               aria-label="Add an option" />
+        <button class="btn btn-add" type="submit" aria-label="Add option">Add</button>
+      </form>
+      <p class="hint" id="hint">Tip: separate several at once with commas or new lines.</p>
+
+      <ul id="chips" class="chips" aria-label="Current options"></ul>
+
+      <div class="panel-actions">
+        <button class="btn btn-ghost" id="shuffle-btn" type="button">🔀 Shuffle</button>
+        <button class="btn btn-ghost" id="copy-btn" type="button">🔗 Copy link</button>
+        <button class="btn btn-ghost danger" id="clear-btn" type="button">🧹 Clear all</button>
+      </div>
+    </section>
+
+    <section class="card stage" aria-labelledby="wheel-heading">
+      <h2 id="wheel-heading" class="sr-only">The circle</h2>
+
+      <div class="wheel-wrap">
+        <svg class="wheel" id="wheel" viewBox="0 0 400 400" role="img" aria-label="Options arranged around a circle"></svg>
+        <svg class="bottle-layer" viewBox="0 0 400 400" aria-hidden="true">
+          <g id="bottle" class="bottle">
+            <g transform="translate(200 200) scale(0.88) translate(-200 -200)">
+              <ellipse class="bottle-shadow" cx="203" cy="215" rx="26" ry="52" />
+              <path class="bottle-body" d="M183 250 C183 257 189 260 200 260 C211 260 217 257 217 250 L217 190 C217 177 206 171 205 161 L205 82 L195 82 L195 161 C194 171 183 177 183 190 Z" />
+              <path class="bottle-shine" d="M190 246 C190 250 191 252 193 253 L193 192 C193 182 199 176 200 166 L200 88 L196 88 L196 166 C195 176 190 182 190 192 Z" />
+              <rect class="bottle-cap" x="192" y="62" width="16" height="22" rx="6" />
+              <circle class="bottle-label" cx="200" cy="222" r="12" />
+              <text class="bottle-heart" x="200" y="227" text-anchor="middle">♥</text>
+            </g>
+          </g>
+        </svg>
+        <div class="hub" aria-hidden="true"></div>
+      </div>
+
+      <button class="btn btn-spin" id="spin-btn" type="button">Spin the bottle!</button>
+      <p class="status" id="status" role="status" aria-live="polite">Add at least 2 options to spin.</p>
+    </section>
+  </main>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="winner-label">
+      <p class="modal-kicker">The bottle has spoken…</p>
+      <p class="winner" id="winner-label">—</p>
+      <div class="modal-actions">
+        <button class="btn btn-spin small" id="again-btn" type="button">🔁 Spin again</button>
+        <button class="btn btn-ghost" id="remove-btn" type="button">🗑️ Remove &amp; respin</button>
+        <button class="btn btn-ghost" id="close-btn" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="site-footer">Made for the chronically indecisive · <span id="count-note"></span></footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "spin-the-bottle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A cute static page that spreads your options around a circle and spins a bottle to pick one.",
+  "keywords": ["decision", "random", "picker", "github-pages", "static-site"],
+  "license": "MIT",
+  "scripts": {
+    "start": "npx --yes serve . -l 8000"
+  }
+}

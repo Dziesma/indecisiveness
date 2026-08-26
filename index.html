@@ -64,19 +64,29 @@
       <div class="wheel-wrap">
         <svg class="wheel" id="wheel" viewBox="0 0 400 400" role="img" aria-label="Options arranged around a circle"></svg>
         <svg class="bottle-layer" viewBox="0 0 400 400" aria-hidden="true">
+          <defs>
+            <linearGradient id="alus-glass-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#472508" />
+              <stop offset="18%" stop-color="#7c4413" />
+              <stop offset="38%" stop-color="#a2621e" />
+              <stop offset="58%" stop-color="#7f4714" />
+              <stop offset="100%" stop-color="#472508" />
+            </linearGradient>
+          </defs>
           <g id="bottle" class="bottle">
-            <g transform="translate(200 200) scale(0.88) translate(-200 -200)">
+            <g transform="translate(200 200) scale(0.8) translate(-200 -200)">
 
               <!-- Alus: brown longneck with a crown cap and a flag-banded label -->
               <g class="art art-alus">
-                <path class="alus-glass" d="M181 246 C181 254 187 258 200 258 C213 258 219 254 219 246 L219 186 C219 172 208 164 206 152 L206 76 L194 76 L194 152 C192 164 181 172 181 186 Z" />
-                <path class="alus-shine" d="M187 244 C187 249 189 251 191 252 L191 188 C191 176 198 168 199 156 L199 82 L195 82 L195 156 C194 168 187 176 187 188 Z" />
-                <rect class="alus-foil" x="193" y="76" width="14" height="13" rx="2" />
-                <path class="alus-cap" d="M190 58 h20 v10 l3 3 v5 h-26 v-5 l3 -3 Z" />
-                <rect class="alus-label" x="181" y="196" width="38" height="42" rx="2" />
-                <rect class="alus-band" x="181" y="196" width="38" height="6" />
-                <rect class="alus-band" x="181" y="232" width="38" height="6" />
-                <text class="alus-word" x="200" y="221">ALUS</text>
+                <path class="alus-glass" d="M 189.3 63 C 189.1 69, 186.9 78, 185.8 84 C 185 91, 185 98, 184.6 104.5 C 184 110, 180 113.5, 176.4 118.4 C 174.4 122, 173 126.5, 172.8 132 C 172.6 160, 172.5 190, 172.5 215 C 172.6 225, 173.2 235, 174.4 243 L 174.4 243.5 Q 174.4 250 180.9 250 L 219.1 250 Q 225.6 250 225.6 243.5 C 226.8 235, 227.4 225, 227.5 215 C 227.5 190, 227.4 160, 227.2 132 C 227 126.5, 225.6 122, 223.6 118.4 C 220 113.5, 216 110, 215.4 104.5 C 215 98, 215 91, 214.2 84 C 213.1 78, 210.9 69, 210.7 63 Z" />
+                <path class="alus-shine" d="M 191.5 66 C 190 78, 187.5 92, 187 105 C 186.6 112, 180.5 121, 179 133 L 179 236 C 179 241, 180.5 244, 182.5 245.5 L 185 245.5 C 183 244, 181.5 241, 181.5 236 L 181.5 133.5 C 183 122, 189 113, 189.5 105.5 C 190 92, 193 78, 194.5 66 Z" />
+                <path class="alus-foil" d="M 188.7 72 L 211.3 72 L 214.1 86 L 185.9 86 Z" />
+                <rect class="alus-label" x="172.7" y="148" width="54.6" height="64" rx="1.5" />
+                <rect class="alus-band" x="172.7" y="148" width="54.6" height="4.5" />
+                <rect class="alus-band" x="172.7" y="207.5" width="54.6" height="4.5" />
+                <text class="alus-word" x="200" y="184">ALUS</text>
+                <rect class="alus-lip" x="188.6" y="61" width="22.8" height="7" rx="1.5" />
+                <path class="alus-cap" d="M 188.5 60 L 188.5 57 Q 188.5 54 191.5 54 L 208.5 54 Q 211.5 54 211.5 57 L 211.5 60 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 Z" />
               </g>
 
               <!-- Candy: the original mint-glass bottle -->

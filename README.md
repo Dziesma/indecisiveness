@@ -13,7 +13,10 @@ the original bubblegum **Candy**.
 - **Options are laid out around a circle** as coloured slices with labels, up to 24 of them.
 - **Two themes**, picked from the options panel:
   - **Alus** (default) — oat linen, amber glass and a carmine accent, spinning a
-    brown Latvian-style longneck with a crown cap and an `ALUS` label.
+    Latvian-style longneck. The silhouette is traced from a real 0.5 l bottle's
+    measured width profile (height:width 3.57, neck a quarter of the height
+    flaring 0.36→0.56 of body width, shoulder 28–40%, body 40–96%), with a
+    crimped crown cap and a plain flag-banded label — no brand marks.
   - **Candy** — the original bubblegum/lavender palette and mint bottle.
 - **Spin the bottle** — it accelerates, decelerates on an ease-out curve, and lands
   on a random slice (uniform over the options, with a bit of jitter so it doesn't

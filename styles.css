@@ -346,16 +346,18 @@ h1, h2 { margin: 0; font-weight: 600; }
 
 .cast-shadow { fill: rgba(80, 55, 25, 0.12); }
 
-/* Alus: brown longneck, carmine crown cap, flag-banded label */
-.alus-glass { fill: #6f3d13; stroke: #43230a; stroke-width: 2.5; stroke-linejoin: round; }
-.alus-shine { fill: rgba(255, 219, 158, 0.4); }
-.alus-cap { fill: #9e3039; stroke: #6f1f26; stroke-width: 2; stroke-linejoin: round; }
-.alus-foil { fill: #9e3039; }
-.alus-label { fill: #f4e8cf; stroke: #d8c39b; stroke-width: 1.2; }
+/* Alus: amber longneck drawn from a real bottle's proportions (H:W 3.57),
+   with a crimped crown cap and a flag-banded label. */
+.alus-glass { fill: url(#alus-glass-grad); stroke: #3a1e06; stroke-width: 2; stroke-linejoin: round; }
+.alus-shine { fill: rgba(255, 226, 176, 0.3); }
+.alus-lip { fill: #8a4d17; stroke: #3a1e06; stroke-width: 1.2; }
+.alus-cap { fill: #9e3039; stroke: #6f1f26; stroke-width: 1.6; stroke-linejoin: round; }
+.alus-foil { fill: #9e3039; opacity: 0.92; }
+.alus-label { fill: #f4e8cf; stroke: #d8c39b; stroke-width: 1; }
 .alus-band { fill: #9e3039; }
 .alus-word {
-  fill: #6f1f26; font-family: inherit; font-size: 9px; font-weight: 600;
-  letter-spacing: 1.6px; text-anchor: middle;
+  fill: #6f1f26; font-family: inherit; font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-anchor: middle;
 }
 
 /* Candy: mint glass, pink cap, heart label */

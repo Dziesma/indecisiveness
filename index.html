@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Spin the Bottle · Indecisiveness Solver</title>
 <meta name="description" content="Type your options, spread them around the circle, and let the bottle decide." />
-<meta name="theme-color" content="#ffd9e8" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍾</text></svg>" />
+<meta name="theme-color" content="#f8f1e3" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍺</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -18,7 +18,7 @@
   </div>
 
   <header class="site-header">
-    <h1><span class="wobble">🍾</span> Spin the Bottle</h1>
+    <h1><span class="wobble" id="skin-emoji">🍺</span> Spin the Bottle</h1>
     <p class="tagline">Can't decide? Let physics (and a little randomness) do it for you.</p>
   </header>
 
@@ -40,6 +40,22 @@
         <button class="btn btn-ghost" id="copy-btn" type="button">🔗 Copy link</button>
         <button class="btn btn-ghost danger" id="clear-btn" type="button">🧹 Clear all</button>
       </div>
+
+      <div class="theme-row" role="group" aria-labelledby="theme-label">
+        <span class="field-label" id="theme-label">Theme</span>
+        <button class="theme-btn" type="button" data-skin="alus" aria-pressed="true">
+          <span class="swatch" aria-hidden="true">
+            <i style="background:#c07a1e"></i><i style="background:#6f3d13"></i><i style="background:#9e3039"></i>
+          </span>
+          Alus
+        </button>
+        <button class="theme-btn" type="button" data-skin="candy" aria-pressed="false">
+          <span class="swatch" aria-hidden="true">
+            <i style="background:#ff8fab"></i><i style="background:#a78bfa"></i><i style="background:#7fd4b4"></i>
+          </span>
+          Candy
+        </button>
+      </div>
     </section>
 
     <section class="card stage" aria-labelledby="wheel-heading">
@@ -50,12 +66,29 @@
         <svg class="bottle-layer" viewBox="0 0 400 400" aria-hidden="true">
           <g id="bottle" class="bottle">
             <g transform="translate(200 200) scale(0.88) translate(-200 -200)">
-              <ellipse class="bottle-shadow" cx="203" cy="215" rx="26" ry="52" />
-              <path class="bottle-body" d="M183 250 C183 257 189 260 200 260 C211 260 217 257 217 250 L217 190 C217 177 206 171 205 161 L205 82 L195 82 L195 161 C194 171 183 177 183 190 Z" />
-              <path class="bottle-shine" d="M190 246 C190 250 191 252 193 253 L193 192 C193 182 199 176 200 166 L200 88 L196 88 L196 166 C195 176 190 182 190 192 Z" />
-              <rect class="bottle-cap" x="192" y="62" width="16" height="22" rx="6" />
-              <circle class="bottle-label" cx="200" cy="222" r="12" />
-              <text class="bottle-heart" x="200" y="227" text-anchor="middle">♥</text>
+
+              <!-- Alus: brown longneck with a crown cap and a flag-banded label -->
+              <g class="art art-alus">
+                <path class="alus-glass" d="M181 246 C181 254 187 258 200 258 C213 258 219 254 219 246 L219 186 C219 172 208 164 206 152 L206 76 L194 76 L194 152 C192 164 181 172 181 186 Z" />
+                <path class="alus-shine" d="M187 244 C187 249 189 251 191 252 L191 188 C191 176 198 168 199 156 L199 82 L195 82 L195 156 C194 168 187 176 187 188 Z" />
+                <rect class="alus-foil" x="193" y="76" width="14" height="13" rx="2" />
+                <path class="alus-cap" d="M190 58 h20 v10 l3 3 v5 h-26 v-5 l3 -3 Z" />
+                <rect class="alus-label" x="181" y="196" width="38" height="42" rx="2" />
+                <rect class="alus-band" x="181" y="196" width="38" height="6" />
+                <rect class="alus-band" x="181" y="232" width="38" height="6" />
+                <text class="alus-word" x="200" y="221">ALUS</text>
+              </g>
+
+              <!-- Candy: the original mint-glass bottle -->
+              <g class="art art-candy">
+                <ellipse class="cast-shadow" cx="203" cy="215" rx="26" ry="52" />
+                <path class="candy-glass" d="M183 250 C183 257 189 260 200 260 C211 260 217 257 217 250 L217 190 C217 177 206 171 205 161 L205 82 L195 82 L195 161 C194 171 183 177 183 190 Z" />
+                <path class="candy-shine" d="M190 246 C190 250 191 252 193 253 L193 192 C193 182 199 176 200 166 L200 88 L196 88 L196 166 C195 176 190 182 190 192 Z" />
+                <rect class="candy-cap" x="192" y="62" width="16" height="22" rx="6" />
+                <circle class="candy-label" cx="200" cy="222" r="12" />
+                <text class="candy-heart" x="200" y="227" text-anchor="middle">♥</text>
+              </g>
+
             </g>
           </g>
         </svg>

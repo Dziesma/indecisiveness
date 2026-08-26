@@ -2,22 +2,27 @@
 
 A cute, dependency-free static page for the chronically indecisive. Type in your
 options, watch them spread themselves around a circle, then spin the bottle and
-let it choose for you.
+let it choose for you. Comes in two themes: amber-and-oak **Alus** (default) and
+the original bubblegum **Candy**.
 
-![no build step, no dependencies](https://img.shields.io/badge/build-none-ff8fab)
+![no build step, no dependencies](https://img.shields.io/badge/build-none-c07a1e)
 
 ## Features
 
 - **Add options** one at a time, or paste a whole batch separated by commas / new lines.
 - **Options are laid out around a circle** as coloured slices with labels, up to 24 of them.
+- **Two themes**, picked from the options panel:
+  - **Alus** (default) — oat linen, amber glass and a carmine accent, spinning a
+    brown Latvian-style longneck with a crown cap and an `ALUS` label.
+  - **Candy** — the original bubblegum/lavender palette and mint bottle.
 - **Spin the bottle** — it accelerates, decelerates on an ease-out curve, and lands
   on a random slice (uniform over the options, with a bit of jitter so it doesn't
   always stop dead centre).
 - **Winner celebration**: confetti, a bounce-in card, and the winning slice
   highlighted on the wheel.
 - **Remove & respin** for elimination-style rounds.
-- **Options are saved** in `localStorage`, and encoded in the URL hash so you can
-  share a ready-made circle with the **Copy link** button.
+- **Options and theme are saved** in `localStorage`, and encoded in the URL hash
+  (`#o=Pizza|Sushi&s=candy`) so **Copy link** shares the circle *and* the look.
 - Keyboard friendly (`Space` spins, `Esc` closes the winner card), responsive,
   and respects `prefers-reduced-motion`.
 
@@ -25,9 +30,9 @@ let it choose for you.
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Page markup: option panel, wheel, bottle SVG, winner card |
-| `styles.css` | Pastel theme, layout, animations |
-| `app.js` | Option state, wheel geometry, spin maths, confetti |
+| `index.html` | Page markup: option panel, theme picker, wheel, both bottle SVGs, winner card |
+| `styles.css` | Theme tokens, layout, animations |
+| `app.js` | Option and theme state, wheel geometry, spin maths, confetti |
 | `.github/workflows/deploy.yml` | Builds nothing, publishes the folder to GitHub Pages |
 | `.nojekyll` | Tells Pages to serve the files as-is |
 
@@ -60,8 +65,13 @@ everything is static and all paths are relative, that works with no workflow at 
 
 ## Tweaking
 
-- **Colours**: the `PALETTE` array at the top of `app.js` (slices, chips, confetti)
-  and the CSS custom properties in `:root` in `styles.css`.
+- **Themes**: each one is two pieces — a token block in `styles.css` (`:root` is the
+  default skin, `:root[data-skin="candy"]` overrides the same names) and an entry in
+  `THEMES` in `app.js` (slice colours, confetti colours, header emoji). To add a third,
+  copy both, add a `<button class="theme-btn" data-skin="…">` to the theme row, and
+  add a `<g class="art art-…">` bottle inside `#bottle` if it needs its own artwork.
+- **Colours**: components only reference tokens, never raw hex, so re-skinning is
+  confined to those two blocks.
 - **Starting options**: the `DEFAULTS` array in `app.js`.
 - **Limits**: `MAX_OPTIONS` (24) and `MAX_LEN` (40) in `app.js`.
 - **Spin feel**: the `duration` / `turns` values in `spin()`, and the

@@ -1,14 +1,33 @@
 /* Spin the Bottle — a tiny, dependency-free decision maker. */
 
-const PALETTE = [
-  '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff',
-  '#a0c4ff', '#bdb2ff', '#ffc6ff', '#ffb5a7', '#b8f2e6',
-  '#f6d6ff', '#d4f0a0'
-];
+const THEMES = {
+  /* Amber glass, oat linen and a carmine accent, to go with the beer bottle. */
+  alus: {
+    emoji: '🍺',
+    slices: [
+      '#f2e3b8', '#e0b45e', '#cbd09b', '#a9c39c', '#9dc1bd',
+      '#b4c0d3', '#d3c2ab', '#e0a983', '#b9a389', '#bfc7b4'
+    ],
+    confetti: ['#c07a1e', '#9e3039', '#e0b45e', '#f2e3b8', '#8fa882', '#6f3d13']
+  },
+  /* The original bubblegum set. */
+  candy: {
+    emoji: '🍾',
+    slices: [
+      '#ffadad', '#ffd6a5', '#fdffb6', '#caffbf', '#9bf6ff',
+      '#a0c4ff', '#bdb2ff', '#ffc6ff', '#ffb5a7', '#b8f2e6',
+      '#f6d6ff', '#d4f0a0'
+    ],
+    confetti: null   // falls back to the slice colours
+  }
+};
+
+const DEFAULT_SKIN = 'alus';
 
 const MAX_OPTIONS = 24;
 const MAX_LEN = 40;
 const STORE_KEY = 'spin-the-bottle:options';
+const SKIN_KEY = 'spin-the-bottle:skin';
 const DEFAULTS = ['Pizza 🍕', 'Sushi 🍣', 'Tacos 🌮', 'Ramen 🍜', 'Burgers 🍔', 'Salad 🥗'];
 
 const CX = 200, CY = 200, R = 170;
@@ -29,30 +48,33 @@ const el = {
   modal: $('#modal'),
   winner: $('#winner-label'),
   toast: $('#toast'),
-  countNote: $('#count-note')
+  countNote: $('#count-note'),
+  skinEmoji: $('#skin-emoji')
 };
 
 let options = [];
+let skin = DEFAULT_SKIN;
 let rotation = 0;        // accumulated bottle rotation, in degrees
 let spinning = false;
 let winnerIndex = -1;
 
 /* ---------------- state helpers ---------------- */
 
-const colorFor = (i) => PALETTE[i % PALETTE.length];
+const palette = () => THEMES[skin].slices;
+const colorFor = (i) => palette()[i % palette().length];
 
 /* Colours for the current option list; nudges the last one if it would meet
    the same colour at the top of the circle. */
 function sliceColors(n) {
   const colors = [];
   for (let i = 0; i < n; i++) colors.push(colorFor(i));
-  if (n > 2 && colors[n - 1] === colors[0]) colors[n - 1] = PALETTE[n % PALETTE.length];
+  if (n > 2 && colors[n - 1] === colors[0]) colors[n - 1] = palette()[n % palette().length];
   return colors;
 }
 
 function loadOptions() {
-  const fromHash = readHash();
-  if (fromHash.length) return fromHash;
+  const fromHash = readHash().options;
+  if (fromHash && fromHash.length) return fromHash;
   try {
     const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
     if (Array.isArray(saved) && saved.length) return saved.slice(0, MAX_OPTIONS);
@@ -60,23 +82,50 @@ function loadOptions() {
   return DEFAULTS.slice();
 }
 
-function readHash() {
-  const m = location.hash.match(/^#o=(.*)$/);
-  if (!m) return [];
+function loadSkin() {
+  const fromHash = readHash().skin;
+  if (fromHash) return fromHash;
   try {
-    return decodeURIComponent(m[1])
-      .split('|')
-      .map((s) => s.trim().slice(0, MAX_LEN))
-      .filter(Boolean)
-      .slice(0, MAX_OPTIONS);
-  } catch (_) {
-    return [];
+    const saved = localStorage.getItem(SKIN_KEY);
+    if (saved && THEMES[saved]) return saved;
+  } catch (_) { /* private mode */ }
+  return DEFAULT_SKIN;
+}
+
+/* Hash format: #o=<options joined by |>&s=<skin>. Both parts are optional,
+   so the older #o=… links people may have shared still work. */
+function readHash() {
+  const raw = location.hash.replace(/^#/, '');
+  if (!raw) return {};
+  const out = {};
+  for (const part of raw.split('&')) {
+    const eq = part.indexOf('=');
+    const key = eq < 0 ? part : part.slice(0, eq);
+    const value = eq < 0 ? '' : part.slice(eq + 1);
+    if (key === 'o') {
+      try {
+        out.options = decodeURIComponent(value)
+          .split('|')
+          .map((s) => s.trim().slice(0, MAX_LEN))
+          .filter(Boolean)
+          .slice(0, MAX_OPTIONS);
+      } catch (_) { /* malformed escape */ }
+    } else if (key === 's' && THEMES[value]) {
+      out.skin = value;
+    }
   }
+  return out;
 }
 
 function persist() {
-  try { localStorage.setItem(STORE_KEY, JSON.stringify(options)); } catch (_) { /* private mode */ }
-  const hash = options.length ? '#o=' + encodeURIComponent(options.join('|')) : '';
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(options));
+    localStorage.setItem(SKIN_KEY, skin);
+  } catch (_) { /* private mode */ }
+  const parts = [];
+  if (options.length) parts.push('o=' + encodeURIComponent(options.join('|')));
+  if (skin !== DEFAULT_SKIN) parts.push('s=' + skin);
+  const hash = parts.length ? '#' + parts.join('&') : '';
   try {
     history.replaceState(null, '', location.pathname + location.search + hash);
   } catch (_) { /* some browsers block replaceState on file:// */ }
@@ -268,6 +317,19 @@ function render() {
   el.countNote.textContent = options.length + ' option' + (options.length === 1 ? '' : 's') + ' loaded';
 }
 
+/* ---------------- theme ---------------- */
+
+function applySkin(next) {
+  skin = THEMES[next] ? next : DEFAULT_SKIN;
+  document.documentElement.setAttribute('data-skin', skin);
+  el.skinEmoji.textContent = THEMES[skin].emoji;
+  document.querySelectorAll('.theme-btn').forEach((btn) => {
+    btn.setAttribute('aria-pressed', String(btn.dataset.skin === skin));
+  });
+  persist();
+  render();   // slice and chip colours come from the active theme
+}
+
 /* ---------------- spinning ---------------- */
 
 function spin() {
@@ -335,6 +397,7 @@ function sizeCanvas() {
 function burstConfetti() {
   sizeCanvas();
   const w = window.innerWidth;
+  const colors = THEMES[skin].confetti || palette();
   pieces = Array.from({ length: 110 }, () => ({
     x: w / 2 + (Math.random() - 0.5) * w * 0.5,
     y: window.innerHeight * 0.42 + (Math.random() - 0.5) * 60,
@@ -343,7 +406,7 @@ function burstConfetti() {
     size: 5 + Math.random() * 7,
     rot: Math.random() * Math.PI,
     vr: (Math.random() - 0.5) * 0.28,
-    color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+    color: colors[Math.floor(Math.random() * colors.length)],
     life: 1
   }));
   cancelAnimationFrame(rafId);
@@ -392,6 +455,12 @@ $('#remove-btn').addEventListener('click', () => {
   if (options.length >= 2) spin();
 });
 
+document.querySelectorAll('.theme-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.skin !== skin) applySkin(btn.dataset.skin);
+  });
+});
+
 $('#shuffle-btn').addEventListener('click', () => {
   if (spinning) return;
   for (let i = options.length - 1; i > 0; i--) {
@@ -429,12 +498,12 @@ document.addEventListener('keydown', (e) => {
 
 window.addEventListener('hashchange', () => {
   const fromHash = readHash();
-  if (fromHash.length) { options = fromHash; persist(); render(); }
+  if (fromHash.options && fromHash.options.length) options = fromHash.options;
+  applySkin(fromHash.skin || skin);   // persists and re-renders
 });
 
 window.addEventListener('resize', () => { if (pieces.length) sizeCanvas(); });
 
 options = loadOptions();
-persist();
-render();
+applySkin(loadSkin());   // persists and renders
 sizeCanvas();

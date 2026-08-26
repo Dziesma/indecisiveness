@@ -16,7 +16,9 @@ the original bubblegum **Candy**.
     Latvian-style longneck. The silhouette is traced from a real 0.5 l bottle's
     measured width profile (height:width 3.57, neck a quarter of the height
     flaring 0.36→0.56 of body width, shoulder 28–40%, body 40–96%), with a
-    crimped crown cap and a plain flag-banded label — no brand marks.
+    crimped crown cap. Bare glass — no label, no brand marks. It spins about
+    its silhouette centroid (44% up from the base), where an empty bottle
+    actually balances, rather than about a point near the heel.
   - **Candy** — the original bubblegum/lavender palette and mint bottle.
 - **Spin the bottle** — it accelerates, decelerates on an ease-out curve, and lands
   on a random slice (uniform over the options, with a bit of jitter so it doesn't

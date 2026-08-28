@@ -10,6 +10,15 @@ const THEMES = {
     ],
     confetti: ['#c07a1e', '#9e3039', '#e0b45e', '#f2e3b8', '#8fa882', '#6f3d13']
   },
+  /* Claret, bottle green and limestone, for the Bordeaux bottle. */
+  bordeaux: {
+    emoji: '🍷',
+    slices: [
+      '#e8d7d2', '#cfa3a8', '#b7909f', '#a8adb8', '#b3bda6',
+      '#d8c3a0', '#c9a678', '#d2a08a', '#bfae9e', '#9db3a6'
+    ],
+    confetti: ['#8c2f45', '#6b1f33', '#cfa3a8', '#d8c3a0', '#3f4b3a', '#c9a678']
+  },
   /* The original bubblegum set. */
   candy: {
     emoji: '🍾',

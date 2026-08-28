@@ -1,7 +1,7 @@
 /* ============================================================
    Tokens. The bare :root block is the default skin (Alus);
-   [data-skin="candy"] redefines the same names. Components below
-   only ever reference tokens, never a raw colour.
+   [data-skin="candy"] and [data-skin="bordeaux"] redefine the same names.
+   Components below only ever reference tokens, never a raw colour.
    ============================================================ */
 
 :root {
@@ -90,6 +90,49 @@
   --label-ink: #4a3a55;
   --label-halo: rgba(255, 255, 255, 0.85);
   --scrim: rgba(74, 58, 85, 0.28);
+}
+
+:root[data-skin="bordeaux"] {
+  /* Claret, bottle green and limestone */
+  --bg-1: #f5efec;
+  --bg-2: #e2d5d6;
+  --surface: #fffbf9;
+  --card: rgba(255, 251, 249, 0.82);
+  --card-line: rgba(255, 255, 255, 0.85);
+  --tint: #fdf5f4;
+  --tint-2: #f5eceb;
+  --line: #e6d8d6;
+  --line-strong: #d6c0be;
+
+  --ink: #3a2229;
+  --ink-soft: #7d626a;
+  --placeholder: #b9a4a6;
+
+  --accent: #8c2f45;
+  --accent-deep: #6b1f33;
+  --accent-soft: rgba(140, 47, 69, 0.2);
+  --focus: #6b1f33;
+  --danger: #a8412c;
+
+  --grad-btn: linear-gradient(135deg, #8c2f45 0%, #5d1a2c 100%);
+  --grad-spin: linear-gradient(135deg, #a03a52 0%, #7a2440 55%, #3f4b3a 100%);
+  --grad-winner: linear-gradient(120deg, #6b1f33, #3f4b3a);
+
+  --shadow: 0 18px 40px -18px rgba(74, 34, 45, 0.45);
+  --shadow-btn: 0 6px 0 -1px rgba(107, 31, 51, 0.32);
+  --shadow-spin: 0 10px 0 -2px rgba(107, 31, 51, 0.32), 0 20px 30px -14px rgba(107, 31, 51, 0.55);
+  --shadow-chip: 0 3px 8px -4px rgba(74, 34, 45, 0.5);
+
+  --blob-1: #cfa9b2;
+  --blob-2: #b8bfae;
+  --blob-3: #d9c6b4;
+
+  --rim: #fffbf9;
+  --rim-soft: rgba(255, 251, 249, 0.65);
+  --surface-soft: rgba(255, 251, 249, 0.6);
+  --label-ink: #3a2229;
+  --label-halo: rgba(255, 251, 249, 0.85);
+  --scrim: rgba(58, 34, 41, 0.32);
 }
 
 * { box-sizing: border-box; }
@@ -338,10 +381,11 @@ h1, h2 { margin: 0; font-weight: 600; }
   filter: drop-shadow(0 6px 10px rgba(58, 40, 20, 0.35));
 }
 
-/* one bottle per skin */
+/* one bottle per skin; the unstamped root is the default (Alus) */
 .art { display: none; }
-:root .art-alus { display: block; }
-:root[data-skin="candy"] .art-alus { display: none; }
+:root:not([data-skin]) .art-alus,
+:root[data-skin="alus"] .art-alus,
+:root[data-skin="bordeaux"] .art-bordeaux,
 :root[data-skin="candy"] .art-candy { display: block; }
 
 .cast-shadow { fill: rgba(80, 55, 25, 0.12); }
@@ -352,6 +396,14 @@ h1, h2 { margin: 0; font-weight: 600; }
 .alus-shine { fill: rgba(255, 232, 190, 0.45); }
 .alus-lip { fill: #9a5a1c; stroke: #3a1e06; stroke-width: 1.2; }
 .alus-cap { fill: #9e3039; stroke: #6f1f26; stroke-width: 1.6; stroke-linejoin: round; }
+
+/* Bordeaux: high-shouldered claret bottle traced from a real 750 ml bottle
+   (H:W 4.07, neck 0.36→0.44 over 24% of height, shoulder 24–38%, body 38–96%). */
+.wine-glass { fill: url(#wine-glass-grad); stroke: #141d0f; stroke-width: 2; stroke-linejoin: round; }
+.wine-punt { fill: #101a0c; opacity: 0.55; }
+.wine-shine { fill: rgba(214, 236, 178, 0.32); }
+.wine-capsule { fill: #7a2440; stroke: #4a1226; stroke-width: 1.6; stroke-linejoin: round; }
+.wine-capsule-band { fill: #4a1226; opacity: 0.85; }
 
 /* Candy: mint glass, pink cap, heart label */
 .candy-glass { fill: #7fd4b4; stroke: #4fae8d; stroke-width: 2.5; stroke-linejoin: round; }

@@ -49,6 +49,12 @@
           </span>
           Alus
         </button>
+        <button class="theme-btn" type="button" data-skin="bordeaux" aria-pressed="false">
+          <span class="swatch" aria-hidden="true">
+            <i style="background:#8c2f45"></i><i style="background:#3f4b3a"></i><i style="background:#cfa3a8"></i>
+          </span>
+          Bordeaux
+        </button>
         <button class="theme-btn" type="button" data-skin="candy" aria-pressed="false">
           <span class="swatch" aria-hidden="true">
             <i style="background:#ff8fab"></i><i style="background:#a78bfa"></i><i style="background:#7fd4b4"></i>
@@ -73,6 +79,14 @@
               <stop offset="74%" stop-color="#6b3a10" />
               <stop offset="100%" stop-color="#43210a" />
             </linearGradient>
+            <linearGradient id="wine-glass-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1b2614" />
+              <stop offset="14%" stop-color="#3a4d29" />
+              <stop offset="34%" stop-color="#57683b" />
+              <stop offset="50%" stop-color="#42522d" />
+              <stop offset="74%" stop-color="#28381d" />
+              <stop offset="100%" stop-color="#182211" />
+            </linearGradient>
           </defs>
           <g id="bottle" class="bottle">
             <!-- Alus: amber longneck, glass and crown cap only.
@@ -82,6 +96,16 @@
               <path class="alus-shine" d="M 191.5 66 C 190 78, 187.5 92, 187 105 C 186.6 112, 180.5 121, 179 133 L 179 236 C 179 241, 180.5 244, 182.5 245.5 L 185 245.5 C 183 244, 181.5 241, 181.5 236 L 181.5 133.5 C 183 122, 189 113, 189.5 105.5 C 190 92, 193 78, 194.5 66 Z" />
               <rect class="alus-lip" x="188.6" y="61" width="22.8" height="7" rx="1.5" />
               <path class="alus-cap" d="M 188.5 60 L 188.5 57 Q 188.5 54 191.5 54 L 208.5 54 Q 211.5 54 211.5 57 L 211.5 60 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 l -1.44 4 l -1.44 -4 Z" />
+            </g>
+
+            <!-- Bordeaux: high-shouldered claret bottle, glass and foil capsule only.
+                 Pivots on its silhouette centroid (y=167), 42% up from the base. -->
+            <g class="art art-bordeaux" transform="translate(200 200) scale(0.92) translate(-200 -166.7)">
+              <path class="wine-glass" d="M 191.5 54 L 191.5 56 C 190.5 57, 190.5 63, 191.4 64.5 C 191.2 74, 190.9 88, 189.4 101 C 188.6 104, 185.5 108, 181 113 C 178.6 116.5, 176.4 121.5, 175.9 128.5 C 176.1 160, 176.2 200, 176.3 236 L 176.8 242 L 176.8 243.5 Q 176.8 250 183.3 250 L 216.7 250 Q 223.2 250 223.2 243.5 L 223.2 242 L 223.7 236 C 223.8 200, 223.9 160, 224.1 128.5 C 223.6 121.5, 221.4 116.5, 219 113 C 214.5 108, 211.4 104, 210.6 101 C 209.1 88, 208.8 74, 208.6 64.5 C 209.5 63, 209.5 57, 208.5 56 L 208.5 54 Z" />
+              <path class="wine-punt" d="M 181 250 Q 200 231 219 250 Z" />
+              <path class="wine-shine" d="M 194 68 C 193.5 78, 193 88, 192.8 96 C 192.6 102, 184 112, 182.6 130 L 182.6 236 C 182.6 241, 184 244, 186 245.5 L 188.5 245.5 C 186.5 244, 185.1 241, 185.1 236 L 185.1 130.5 C 186.5 113, 195 103, 195.3 96 C 195.5 88, 196 78, 196.5 68 Z" />
+              <path class="wine-capsule" d="M 190.2 56.5 Q 190.2 54 193 54 L 207 54 Q 209.8 54 209.8 56.5 C 210.3 58.5, 210.3 62.5, 209.9 64.5 C 209.8 72, 210 84, 210.1 93 L 189.9 93 C 190 84, 190.2 72, 190.1 64.5 C 189.7 62.5, 189.7 58.5, 190.2 56.5 Z" />
+              <rect class="wine-capsule-band" x="189.9" y="88.5" width="20.2" height="4.5" />
             </g>
 
             <!-- Candy: the original mint-glass bottle -->
